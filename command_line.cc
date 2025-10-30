@@ -167,12 +167,16 @@ void CommandLine::StartEvaluation() {
         time_limit = duration_cast<milliseconds>(
             *deadline - system_clock::now());
       }
+      
+      player->ResetSelDepth();
+
       auto res = player->MakeMove(*board, time_limit, depth);
 
       if (res.has_value()) {
         auto duration_ms = duration_cast<milliseconds>(
             system_clock::now() - start);
         int num_evals = player->GetNumEvaluations() - num_eval_start;
+        int sel_depth = player->GetSelDepthNum();
         std::optional<int> nps;
         if (duration_ms.count() > 0) {
           nps = (int) (((float)num_evals) / (duration_ms.count() / 1000.0));
@@ -187,6 +191,7 @@ void CommandLine::StartEvaluation() {
           << "info"
           << " depth " << depth
           << " time " << duration_ms.count()
+          << " seldepth " << sel_depth
           << " nodes " << num_evals
           << " pv " << pv
           << " score " << score_centipawn;

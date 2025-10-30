@@ -360,6 +360,8 @@ std::optional<std::tuple<int, std::optional<Move>>> AlphaBetaPlayer::Search(
     }
   }
 
+  if (is_pv_node && depth >= 5 && !tt_move) depth--;
+  
   std::optional<Move> best_move;
   int player_color = static_cast<int>(player.GetColor());
 

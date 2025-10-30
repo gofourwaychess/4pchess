@@ -239,6 +239,8 @@ std::optional<std::tuple<int, std::optional<Move>>> AlphaBetaPlayer::Search(
   bool is_pv_node = node_type != NonPV;
   bool is_tt_pv = false;
 
+  if (ply > num_sel_depth) num_sel_depth = ply;
+
   std::optional<Move> tt_move;
   const HashTableEntry* tte = nullptr;
   if (options_.enable_transposition_table) {

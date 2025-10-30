@@ -212,8 +212,11 @@ class AlphaBetaPlayer {
   int64_t GetNumLazyEval() { return num_lazy_eval_; }
   int64_t GetNumRazor() { return num_razor_; }
   int64_t GetNumRazorTested() { return num_razor_tested_; }
+  int64_t GetSelDepthNum() { return num_sel_depth; }
 
   void EnableDebug(bool enable) { enable_debug_ = enable; }
+
+  void ResetSelDepth() { num_sel_depth = 0; }
 
   // for debugging
   int64_t test1_ = 0;
@@ -253,6 +256,7 @@ class AlphaBetaPlayer {
   int64_t num_lazy_eval_ = 0;
   int64_t num_razor_ = 0;
   int64_t num_razor_tested_ = 0;
+  int64_t num_sel_depth = 0;
 
   bool canceled_ = false;
   int piece_move_order_scores_[6];
